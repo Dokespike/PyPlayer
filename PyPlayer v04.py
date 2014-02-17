@@ -1,11 +1,12 @@
 #To run the following program, make sure you have Python along with the following Python modules:
 #python-pygame
+#The dirrectorys of played music is supposed to be sent to a file called CSI.txt, you can change this as you wish on line 9, but if you dont change it you at least have to make a file titled CSI.txt
 #Have fun!
 
 import tkFileDialog, pygame, tkMessageBox
 from Tkinter import *
 
-CSI = open('directory/CSI.txt', 'a')
+CSI = open('CSI.txt', 'a')
 
 app = Tk()
 app.title('PyPlayer')
