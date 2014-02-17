@@ -1,10 +1,8 @@
 #To run the following program, make sure you have Python along with the following Python modules:
-#python-imaging-tk
 #python-pygame
 #Have fun!
 
-import tkFileDialog, PIL.Image, pygame, tkMessageBox
-from PIL import ImageTk
+import tkFileDialog, pygame, tkMessageBox
 from Tkinter import *
 
 CSI = open('directory/CSI.txt', 'a')
@@ -31,14 +29,9 @@ scrollbar.config(command=listbox.yview)
 playbut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).grid(row=2, column=1)
 pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).grid(row=3, column=1)
 
-image = PIL.Image.open("directory/Casset logo.png")
-photo = ImageTk.PhotoImage(image)
-logo = Label(image=photo)
-logo.image = photo
-logo.grid(row=0, column=1 , sticky = NW)
+
 Curt = Label(app,textvariable = curts).grid(row=1, column=1)
 
-#entry = Entry(app,textvariable = ment).grid(row=0, column=1)
 
 def Open():
 	myopen = tkFileDialog.askopenfilename()
