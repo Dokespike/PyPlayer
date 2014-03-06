@@ -36,6 +36,7 @@ scrollbar.grid(row=0, column=0 , sticky = NW)
 def initplay(x):
 	pygame.mixer.music.load(x)
 	pygame.mixer.music.play()
+	curts.set('Now Playing: ' + x)
 	return
 
 def CurSelet(evt):
@@ -77,7 +78,6 @@ def Open():
 	else:
 		addsong(myopen)
 		listbox.insert(END, myopen[songfolder:])
-		curts.set('Now Playing: ' + myopen[songfolder:])
 		initplay(myopen)
 
 def addsong(x):
