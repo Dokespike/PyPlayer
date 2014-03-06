@@ -1,20 +1,30 @@
 PyPlayer
 ========
-An extremely simple and light weight music player made from python and its modules.
+An extremely simple and light weight music player made with python.
 
 This is project is being made by none other than myself (Matthew Shaw) in an attempt to 
-make the most basic and simple, yet functional,  music player anyone could ever construct,
-exclusively from open source tools.
+make the most basic and simple, yet functional, music player for your enjoyment.
 
 
 
-=============================================================================================
-READ THIS PART IF ANYTHING!
 
-This is, in all honestly NOT worth downloading in its current state. Right now it has less
-than subpar audio playback.
+Dependences to install:
+=======================
+"python-imaging-tk"
+"python-pygame"
 
-If you wanted to use this as a music client for a raspberry pi than that would make sense, or
-if you want to take chunks of the source code that is here than thats fine and dandy too.
+If you are on a Debian based system (Or Ubuntu) than install like so:
+sudo apt-get install (one of the above)
 
-Otherwise this isnt worth your time right now.
+
+
+
+Anything else?:
+===============
+All the music you open will have the dirrectorys saved to the file CSI.txt
+
+Open the "Config.txt" file and put the dirrectory of where your music is stored,
+or the lowest possible folder where your music is stored.
+
+If you have a bunch of music and it fills the list box, to scroll down click 
+inside it and move the mouse down/up to browse through the listbox.
