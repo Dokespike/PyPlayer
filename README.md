@@ -13,7 +13,7 @@ Dependences to install:
 "python-imaging-tk"
 "python-pygame"
 
-If you are on a Debian based system (Or Ubuntu) than install like so:
+If you are new to linux and are using Ubuntu or a Raspberry Pi do the following:
 sudo apt-get install (one of the above)
 
 
