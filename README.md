@@ -2,8 +2,8 @@ PyPlayer
 ========
 An extremely simple and light weight music player made with python.
 
-This is project is being made by none other than myself (Matthew Shaw) in an attempt to 
-make the most basic and simple, yet functional, music player for your enjoyment.
+This is project is being made in an attempt to make the most basic and
+simple, yet functional music player for your enjoyment.
 
 
 
