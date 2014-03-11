@@ -7,83 +7,72 @@ import tkFileDialog, PIL.Image, pygame, tkMessageBox
 from PIL import ImageTk
 from Tkinter import *
 
+
+#Opens the config file and puts it into list 'confg'
+#The [:-1] from the string removes the break symbol
 confg = []
 conf = open('Config.txt')
-for x in iter(conf):
-	confg.append(x[:-1])
+for configuration in iter(conf):
+	confg.append(configuration[:-1])
 conf.close()
 
-songfolderimp2 = confg[0]
-checkforsamesong2 = confg[1]
 
-songfolderimp = songfolderimp2[13:]
-checkforsamesong = checkforsamesong2[45:]
+#Grabbing items from array
+songfolderimp = confg[0][13:]
+checkforsamesong = confg[1][45:]
 
-print songfolderimp
-print checkforsamesong
 
+#Songfolder length is used mainly to chop off dirrectorys for music
 songfolder = len(songfolderimp) + 1
-songlis = []
 
+
+#Creates TKinter window and its loop (As well as pygame)
 app = Tk()
 app.title('PyPlayer')
-ment = StringVar()
 pygame.mixer.init()
 
+
+#Scrolling????
 scrollbar = Scrollbar(app)
 scrollbar.grid(row=0, column=0 , sticky = NW)
 
-def initplay(x):
-	pygame.mixer.music.load(x)
+
+#  FFFFFFF                         T                      SSSS   !  
+#  F                       CCCC    T    i   OOOO         S       !  
+#  FFFF   U   U    NNNN   C      TTTTT     O    O  NNNN   SSSS   !  
+#  F      U   Uu   N   N  C        T    I  O    O  N   N      S    
+#  F      UUUUU u  N   N   CCCC    T    I   OOOO   N   N  SSSS   !  
+#PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+
+def initplay(song):
+	pygame.mixer.music.load(song)
 	pygame.mixer.music.play()
-	curts.set('Now Playing: ' + x)
+	curts.set('Now Playing: ' + song)
 	return
+
 
 def CurSelet(evt):
     value=(listbox.get(listbox.curselection()))
     initplay(value)
 
-listbox = Listbox(app, selectmode=SINGLE, width='25', height='23')
-listbox.bind('<<ListboxSelect>>',CurSelet)
-listbox.grid(row=1, column=0 , sticky = NW)
-
-curts = StringVar()
-app.geometry('750x500')
-
-f = open('CSI.txt')
-for x in iter(f):
-	songlis.append(x[songfolder:-1])
-	listbox.insert((1), x[songfolder:-1])
-f.close()
-
-listbox.config(yscrollcommand=scrollbar.set)
-scrollbar.config(command=listbox.yview)
-
-playbut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.495, rely=.5)
-pausebut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.5012, rely=.44)
-
-image = PIL.Image.open("Casset logo.png")
-photo = ImageTk.PhotoImage(image)
-logo = Label(image=photo)
-logo.image = photo
-logo.grid(row=0, column=0 , sticky = NW)
-Curt = Label(app,textvariable = curts).place(relx=.4, rely=.4)
-
-alreadyy = False
-
+    
 def Open():
 	myopen = tkFileDialog.askopenfilename()
 	if len(myopen) < 4:
 		noneadded = tkMessageBox.showwarning( message = 'No song added')
+		curts.set('              No song added')
 	else:
 		addsong(myopen)
 		listbox.insert(END, myopen[songfolder:])
-		initplay(myopen)
+		initplay(myopen[songfolder:])
+		curts.set('Now Playing: ' + myopen[songfolder:])
+
 
 def addsong(x):
 	CSI = open('CSI.txt', 'a')
 	CSI.write(x+'\n')
 	CSI.close()
+
 	
 def quit():
 	exit = tkMessageBox.askyesno(title="Quit", message = 'Are you sure')
@@ -92,8 +81,48 @@ def quit():
 		sys.exit()
 		return
 
-listbox.curselection()
 
+#Creats listbox, 2nd line allows for selection of items within
+listbox = Listbox(app, selectmode=SINGLE, width='25', height='25')
+listbox.bind('<<ListboxSelect>>',CurSelet)
+listbox.grid(row=1, column=0 , sticky = NW)
+
+
+#curts is the text variable above play button
+curts = StringVar()
+app.geometry('750x500')
+
+
+#Add music to listbox from CSI
+songdir = open('CSI.txt')
+for song in iter(songdir):
+	listbox.insert((1), song[songfolder:-1])
+songdir.close()
+
+
+#Scrolling stuff for listbox
+listbox.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=listbox.yview)
+
+
+#Pause and Play button
+playbut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.495, rely=.5)
+pausebut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.5012, rely=.44)
+
+
+#The PyPlayer logo
+image = PIL.Image.open("Casset logo.png")
+photo = ImageTk.PhotoImage(image)
+logo = Label(image=photo)
+logo.image = photo
+logo.grid(row=0, column=0 , sticky = NW)
+
+
+#used to put text above pause button, mostly song info
+Text = Label(app,textvariable = curts).place(relx=.4, rely=.4)
+
+
+#Jazz hands
 menubar = Menu(app)
 filemenu = Menu(menubar, tearoff = 0)
 filemenu.add_command(label = 'Open', command = Open)
