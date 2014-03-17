@@ -6,8 +6,6 @@
 import tkFileDialog, PIL.Image, pygame, tkMessageBox
 from PIL import ImageTk
 from os import listdir
-from os.path import isfile, join
-from Tkinter import *
 
 musiclist = []
 
