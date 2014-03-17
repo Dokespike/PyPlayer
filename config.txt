@@ -1,2 +1,5 @@
-Music Folder=
-#LeaveThisLine
+Music Folder=/
+Check for same song(y/n)=y
+Have Volume bar(y/n)=y
+
+Only change what comes _AFTER_ the "=" signs
