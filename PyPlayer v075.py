@@ -5,9 +5,24 @@
 
 import tkFileDialog, PIL.Image, pygame, tkMessageBox
 from PIL import ImageTk
-from os import listdir
+from Tkinter import *
 
+
+
+#Creates TKinter window and its loop (As well as pygames loop (mixer))
 musiclist = []
+app = Tk()
+app.title('PyPlayer')
+app.geometry('750x500')
+pygame.mixer.init()
+
+
+
+#Creats listbox and places it
+listbox = Listbox(app, selectmode=SINGLE, width='93', height='27')
+listbox.grid(row=1, column=0 , sticky = NW)
+
+
 
 #Opens the config file and puts it into list 'confg'
 #The [:-1] from the string removes the break symbol
@@ -18,31 +33,37 @@ for configuration in iter(conf):
 conf.close()
 
 
-#Grabbing items from array
+
+#Grabbing items from confg to use
 songfolderimp = confg[0][13:]
 CheckForSameSong = confg[1][25:].upper()
 VolumeControl = confg[2][21:].upper()
 
-
-
-#Songfolder length is used mainly to chop off dirrectorys for music
+#Songfolder length is used mainly to chop strings for music
 songfolder = len(songfolderimp) + 1
 
 
-#Creates TKinter window and its loop (As well as pygame)
-songplaying = ''
-app = Tk()
-app.title('PyPlayer')
-pygame.mixer.init()
+
+#Add music to listbox from CSI
+#The [:-1] removes the /n from each item pulled
+songdir = open('CSI.txt')
+for song in iter(songdir):
+	listbox.insert((1), song[songfolder:-1])
+	musiclist.append(song[:-1])
+songdir.close()
 
 
-#curts will be what ever song is playing (what is put into initplay)
+
+#curts will be what ever is put into it (mostly what is put into initplay)
 curts = StringVar()
 
 
-#Scrolling????
-scrollbar = Scrollbar(app)
-scrollbar.grid(row=0, column=0 , sticky = NW)
+
+#Allows for moving up and down listbox
+#scrollbar = Scrollbar(app)
+#scrollbar.place(relx=.7, rely=.03)
+#listbox.config(yscrollcommand=scrollbar.set)
+#scrollbar.config(command=listbox.yview)
 
 
 
@@ -50,25 +71,8 @@ scrollbar.grid(row=0, column=0 , sticky = NW)
 def CurSelet(evt):
     value=(listbox.get(listbox.curselection()))
     initplay(value)
-
-
-
-#Creats listbox, 2nd line allows for selection of items
-listbox = Listbox(app, selectmode=SINGLE, width='25', height='25')
 listbox.bind('<<ListboxSelect>>',CurSelet)
-listbox.grid(row=1, column=0 , sticky = NW)
 
-
-
-#Add music to listbox from CSI
-#The [:-1] from the string removes the break symbol
-songdir = open('CSI.txt')
-for song in iter(songdir):
-	listbox.insert((1), song[songfolder:-1])
-	musiclist.append(song[:-1])
-songdir.close()
-
-print musiclist
 
 
 def initplay(song):
@@ -77,7 +81,7 @@ def initplay(song):
 	curts.set('Now Playing: ' + song)
 	return
 
-#tkMessageBox.showwarning( message = 'Song already added')
+
     
 def Open():
 	myopen = tkFileDialog.askopenfilename()
@@ -133,26 +137,15 @@ def quit():
 
 #Slider to change volume of music
 if VolumeControl == 'Y':
-	volume = Scale(app, from_=100, to=0, length=200)
-	volume.place(relx=.9, rely=.518)
-	VolumeButton = Button(app, text= 'Volume', command = SetVolume).place(relx=.822, rely=.87)
+	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL).place(relx=.62, rely=.01)
+	VolumeButton = Button(app, text= 'Volume', command = SetVolume).place(relx=.9, rely=.03)
 
-
-
-
-#curts is the text variable above play button
-curts = StringVar()
-app.geometry('750x500')
-
-
-#Scrolling stuff for listbox
-listbox.config(yscrollcommand=scrollbar.set)
-scrollbar.config(command=listbox.yview)
 
 
 #Pause and Play button
-playbut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.495, rely=.5)
-pausebut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.5012, rely=.44)
+playbut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.45, rely=.03)
+pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.525, rely=.03)
+
 
 
 #The PyPlayer logo
@@ -163,8 +156,11 @@ logo.image = photo
 logo.grid(row=0, column=0 , sticky = NW)
 
 
-#used to place curts in the program
-Text = Label(app,textvariable = curts).place(relx=.28, rely=.16)	
+
+#curts is the text variable on the window
+curts = StringVar()
+Text = Label(app,textvariable = curts).place(relx=.215, rely=.135)
+
 
 
 #Jazz hands
@@ -175,5 +171,7 @@ filemenu.add_command(label = 'Delete', command = delete)
 filemenu.add_command(label = 'Close',command = quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
 app.config(menu = menubar)
+
+
 
 app.mainloop()
