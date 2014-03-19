@@ -18,14 +18,14 @@ pygame.mixer.init()
 
 
 
-#Creats listbox and places it
+#Makes the listbox and places it
 listbox = Listbox(app, selectmode=SINGLE, width='93', height='27')
-listbox.grid(row=1, column=0 , sticky = NW)
+listbox.grid(row=1, column=0 )
 
 
 
 #Opens the config file and puts it into list 'confg'
-#The [:-1] from the string removes the break symbol
+#The [:-1] removes the break symbol from each segment (/n)
 confg = []
 conf = open('Config.txt')
 for configuration in iter(conf):
@@ -34,7 +34,7 @@ conf.close()
 
 
 
-#Grabbing items from confg to use
+#Grabbing items from confg to use in program
 songfolderimp = confg[0][13:]
 CheckForSameSong = confg[1][25:].upper()
 VolumeControl = confg[2][21:].upper()
@@ -44,28 +44,13 @@ songfolder = len(songfolderimp) + 1
 
 
 
-#Add music to listbox from CSI
-#The [:-1] removes the /n from each item pulled
-songdir = open('CSI.txt')
+#Add music to listbox from MusicDir
+#The [:-1] removes the break symbol from each segment (/n)
+songdir = open('MusicDir.txt')
 for song in iter(songdir):
 	listbox.insert((1), song[songfolder:-1])
 	musiclist.append(song[:-1])
 songdir.close()
-
-
-
-#curts will be what ever is put into it (mostly what is put into initplay)
-curts = StringVar()
-
-
-
-#Allows for moving up and down listbox
-#scrollbar = Scrollbar(app)
-#scrollbar.place(relx=.7, rely=.03)
-#listbox.config(yscrollcommand=scrollbar.set)
-#scrollbar.config(command=listbox.yview)
-
-
 
 
 def CurSelet(evt):
@@ -135,7 +120,23 @@ def quit():
 		
 
 
-#Slider to change volume of music
+#The PyPlayer logo
+image = PIL.Image.open("logo.png")
+photo = ImageTk.PhotoImage(image)
+logo = Label(image=photo)
+logo.image = photo
+logo.grid(row=0, column=0 , sticky = NW)
+
+
+#Arrows for moving up and down listbox
+scrollbar = Scrollbar(app)
+scrollbar.place(relx=.435, rely=.03)
+listbox.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=listbox.yview)
+
+
+
+#Slider and button to change volume of music
 if VolumeControl == 'Y':
 	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL)
 	volume.place(relx=.62, rely=.01)
@@ -144,17 +145,8 @@ if VolumeControl == 'Y':
 
 
 #Pause and Play button
-playbut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.45, rely=.03)
-pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.525, rely=.03)
-
-
-
-#The PyPlayer logo
-image = PIL.Image.open("logo.png")
-photo = ImageTk.PhotoImage(image)
-logo = Label(image=photo)
-logo.image = photo
-logo.grid(row=0, column=0 , sticky = NW)
+playbut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.458, rely=.03)
+pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.53, rely=.03)
 
 
 
