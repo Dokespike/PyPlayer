@@ -137,7 +137,8 @@ def quit():
 
 #Slider to change volume of music
 if VolumeControl == 'Y':
-	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL).place(relx=.62, rely=.01)
+	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL)
+	volume.place(relx=.62, rely=.01)
 	VolumeButton = Button(app, text= 'Volume', command = SetVolume).place(relx=.9, rely=.03)
 
 
@@ -149,7 +150,7 @@ pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place
 
 
 #The PyPlayer logo
-image = PIL.Image.open("Casset logo.png")
+image = PIL.Image.open("logo.png")
 photo = ImageTk.PhotoImage(image)
 logo = Label(image=photo)
 logo.image = photo
