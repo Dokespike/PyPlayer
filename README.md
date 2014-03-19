@@ -13,7 +13,7 @@ Dependences to install:
 First, save this image in the same folder as PyPlayer and name it "logo.png"
 http://i.imgur.com/5TDnX78.png
 
-than you will need the following python modules:
+Then you will need the following python modules:
 
 "python-imaging-tk"
 "python-pygame"
