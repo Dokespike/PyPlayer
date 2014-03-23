@@ -1,5 +1,6 @@
-Music Folder=/
+Music Folder=/home/doke/Dropbox/Grad_project/pyplayer
 Check for same song(y/n)=y
 Have Volume bar(y/n)=y
+Have Logo Image(y/n)=n
 
 Only change what comes _AFTER_ the "=" signs
