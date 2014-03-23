@@ -38,6 +38,7 @@ conf.close()
 songfolderimp = confg[0][13:]
 CheckForSameSong = confg[1][25:].upper()
 VolumeControl = confg[2][21:].upper()
+Logo = confg[3][21:].upper()
 
 #Songfolder length is used mainly to chop strings for music
 songfolder = len(songfolderimp) + 1
@@ -121,11 +122,12 @@ def quit():
 
 
 #The PyPlayer logo
-image = PIL.Image.open("logo.png")
-photo = ImageTk.PhotoImage(image)
-logo = Label(image=photo)
-logo.image = photo
-logo.grid(row=0, column=0 , sticky = NW)
+if Logo == 'Y':
+	image = PIL.Image.open("logo.png")
+	photo = ImageTk.PhotoImage(image)
+	logo = Label(image=photo)	
+	logo.image = photo
+	logo.grid(row=0, column=0 , sticky = NW)
 
 
 #Arrows for moving up and down listbox
