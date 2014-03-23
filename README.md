@@ -10,8 +10,6 @@ simple, yet functional music player for your enjoyment.
 
 Dependences to install:
 =======================
-First, save this image in the same folder as PyPlayer and name it "logo.png"
-http://i.imgur.com/5TDnX78.png
 
 Then you will need the following python modules:
 
@@ -20,6 +18,10 @@ Then you will need the following python modules:
 
 If you are new to linux and are using Ubuntu (Debian based) do the following:
 sudo apt-get install (one of the above) (You need to do it to both)
+
+While you dont _need_ this, if you want the logo for the program in the window use:
+http://i.imgur.com/5TDnX78.png
+and save it as "logo.png" in the same folder as PyPlayer
 
 
 
