@@ -155,7 +155,11 @@ pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place
 
 #curts is the text variable on the window
 curts = StringVar()
-Text = Label(app,textvariable = curts).place(relx=.215, rely=.135)
+Text = Label(app,textvariable = curts)
+if Logo == 'Y':
+	Text.place(relx=.215, rely=.135)
+else:
+	Text.place(relx=.45, rely=.1)
 
 
 
