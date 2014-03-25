@@ -39,9 +39,9 @@ songfolderimp = confg[0][13:]
 CheckForSameSong = confg[1][25:].upper()
 VolumeControl = confg[2][21:].upper()
 Logo = confg[3][21:].upper()
-
+ArrowBrowser = confg[4][34:].upper()
 #Songfolder length is used mainly to chop strings for music
-songfolder = len(songfolderimp) + 1
+songfolder = len(songfolderimp)
 
 
 
@@ -56,7 +56,7 @@ songdir.close()
 
 def CurSelet(evt):
     value=(listbox.get(listbox.curselection()))
-    initplay(value)
+    initplay(songfolderimp + value)
 listbox.bind('<<ListboxSelect>>',CurSelet)
 
 
@@ -64,7 +64,7 @@ listbox.bind('<<ListboxSelect>>',CurSelet)
 def initplay(song):
 	pygame.mixer.music.load(song)
 	pygame.mixer.music.play()
-	curts.set('Now Playing: ' + song)
+	curts.set('Now Playing: ' + song[songfolder:])
 	return
 
 
@@ -89,7 +89,7 @@ def Open():
 				else:
 					addsong(myopen)
 					listbox.insert(END, myopen[songfolder:])
-					initplay(myopen[songfolder:])
+					initplay(myopen)
 	
 	else:
 		addsong(myopen)
@@ -102,7 +102,7 @@ def delete():
 
 
 def addsong(x):
-	CSI = open('CSI.txt', 'a')
+	CSI = open('MusicDir.txt', 'a')
 	CSI.write(x+'\n')
 	CSI.close()
 	
@@ -131,10 +131,11 @@ if Logo == 'Y':
 
 
 #Arrows for moving up and down listbox
-scrollbar = Scrollbar(app)
-scrollbar.place(relx=.435, rely=.03)
-listbox.config(yscrollcommand=scrollbar.set)
-scrollbar.config(command=listbox.yview)
+if ArrowBrowser == 'Y':
+	scrollbar = Scrollbar(app)
+	scrollbar.place(relx=.435, rely=.03)
+	listbox.config(yscrollcommand=scrollbar.set)
+	scrollbar.config(command=listbox.yview)
 
 
 
