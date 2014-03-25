@@ -1,4 +1,4 @@
-Open CSI.txt
-And Erase
-Everything
-Please
+ Open MusicDir.txt
+ And Erase
+ Everything
+ Please
