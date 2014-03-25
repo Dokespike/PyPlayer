@@ -2,5 +2,6 @@ Music Folder=
 Check for same song(y/n)=y
 Have Volume bar(y/n)=y
 Have Logo Image(y/n)=n
+Arrows to act like scroll bar(y/n)=n
 
 Only change what comes _AFTER_ the "=" signs
