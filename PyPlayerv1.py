@@ -36,10 +36,11 @@ conf.close()
 
 #Grabbing items from confg to use in program
 songfolderimp = confg[0][13:]
-CheckForSameSong = confg[1][25:].upper()
-VolumeControl = confg[2][21:].upper()
-Logo = confg[3][21:].upper()
-ArrowBrowser = confg[4][34:].upper()
+CheckForSameSong = confg[1][25:]
+VolumeControl = confg[2][21:]
+Logo = confg[3][21:]
+ArrowBrowser = confg[4][35:]
+
 #Songfolder length is used mainly to chop strings for music
 songfolder = len(songfolderimp)
 
@@ -65,6 +66,7 @@ def initplay(song):
 	pygame.mixer.music.load(song)
 	pygame.mixer.music.play()
 	curts.set('Now Playing: ' + song[songfolder:])
+	print curts.get
 	return
 
 
@@ -74,7 +76,7 @@ def Open():
 	if len(myopen) < 4:
 		noneadded = tkMessageBox.showwarning( message = 'No song added')
 		curts.set('              No song added')
-	if CheckForSameSong == 'Y':
+	if CheckForSameSong == '1':
 		numberofsongs = len(musiclist)
 		print numberofsongs
 		samesong = False
@@ -99,6 +101,10 @@ def Open():
 def delete():
 	print get(ACTIVE)
 	listbox.delete(ANCHOR)
+	CSI = open('MusicDir.txt', 'w')
+	for song in listbox:
+		CSI.write(song+'\n')
+		CSI.close()
 
 
 def addsong(x):
@@ -122,7 +128,7 @@ def quit():
 
 
 #The PyPlayer logo
-if Logo == 'Y':
+if Logo == '1':
 	image = PIL.Image.open("logo.png")
 	photo = ImageTk.PhotoImage(image)
 	logo = Label(image=photo)	
@@ -131,7 +137,7 @@ if Logo == 'Y':
 
 
 #Arrows for moving up and down listbox
-if ArrowBrowser == 'Y':
+if ArrowBrowser == '1':
 	scrollbar = Scrollbar(app)
 	scrollbar.place(relx=.435, rely=.03)
 	listbox.config(yscrollcommand=scrollbar.set)
@@ -140,7 +146,7 @@ if ArrowBrowser == 'Y':
 
 
 #Slider and button to change volume of music
-if VolumeControl == 'Y':
+if VolumeControl == '1':
 	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL)
 	volume.place(relx=.62, rely=.01)
 	VolumeButton = Button(app, text= 'Volume', command = SetVolume).place(relx=.9, rely=.03)
@@ -156,7 +162,7 @@ pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place
 #curts is the text variable on the window
 curts = StringVar()
 Text = Label(app,textvariable = curts)
-if Logo == 'Y':
+if Logo == '1':
 	Text.place(relx=.215, rely=.135)
 else:
 	Text.place(relx=.45, rely=.1)
