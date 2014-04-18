@@ -1,7 +1,7 @@
 Music Folder=
-Check for same song(y/n)=y
-Have Volume bar(y/n)=y
-Have Logo Image(y/n)=n
-Arrows to act like scroll bar(y/n)=n
+Check for same song(1/0)=0
+Have Volume bar(1/0)=0
+Have Logo Image(1/0)=0
+Arrows to act like scroll bar(1/0)=0
 
 Only change what comes _AFTER_ the "=" signs
