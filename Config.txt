@@ -1,8 +1,8 @@
-Music Folder=
+Music Folder=/home/doke
 Check for same song(1/0)=0
-Have Volume bar(1/0)=0
-Have Logo Image(1/0)=0
-Arrows to act like scroll bar(1/0)=0
+Have Volume bar(1/0)=1
+Have Logo Image(1/0)=1
+Arrows to act like scroll bar(1/0)=1
 
 
 
@@ -10,9 +10,15 @@ Arrows to act like scroll bar(1/0)=0
 WARNING! READ BELLOW THIS TO AVOID POSSIBLE ERRORS!!
 =====================================================
 
-Only change what comes _AFTER_ the "=" signs!
+Only change what comes _AFTER_ the "=" signs! leave NO spaces!!
 
-1 is read as YES and 0 is read as NO
+
+1 is read as YES
+0 is read as NO
+
+
+"Check for same song" is bugged, you need to load at least one song without it on for it to work
+
 
 "Music Folder" is used to get rid of extra text. If you know all of you music is in or "deeper" then your home folder for instance, put the dirrectory to your home folder.
 You can leave Music Folder empty but it will leave the full dirrectory to every song.
