@@ -2,8 +2,7 @@ PyPlayer
 ========
 An extremely simple and light weight music player made with python.
 
-This is project is being made in an attempt to make the most basic and
-simple, yet functional music player for your enjoyment.
+This is project is being made in an attempt to make the most basic and simple, yet functional music player for your enjoyment, while its not the most impressive thing ever it aims to be easy to read and understand.
 
 
 
@@ -28,11 +27,8 @@ and save it as "logo.png" in the same folder as PyPlayer, after that change "Hav
 
 Anything else?:
 ===============
-All the music you open will have the dirrectorys saved to the file CSI.txt
+All the music you open will have the dirrectorys saved to the file MusicDir.txt
 
-Open the "Config.txt" file and put the dirrectory of where your music is stored,
-or the lowest folder where your music is stored.
+Open the "Config.txt" file and put the dirrectory of where your music is stored, or most "shallow" from where your music is stored.
 
-If you have a bunch of music and it fills the list box, to scroll down click 
-inside it and move the mouse down/up to browse through the listbox.
-
+If you have a bunch of music and it fills the listbox, to scroll down click inside the listbox and move the mouse down/up or simply enable the use of arrow buttons to move up and down inside the Config.txt file
