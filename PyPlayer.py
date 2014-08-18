@@ -8,9 +8,7 @@ from PIL import ImageTk
 from Tkinter import *
 
 
-
 #Creates TKinter window and its loop (As well as pygames loop (mixer))
-musiclist = []
 app = Tk()
 app.title('PyPlayer')
 app.geometry('750x500')
@@ -48,6 +46,8 @@ songfolder = len(songfolderimp)
 
 #Add music to listbox from MusicDir
 #The [:-1] removes the break symbol from each segment (/n)
+#Musiclist is a list of items in MusicDir
+musiclist = []
 songdir = open('MusicDir.txt')
 for song in iter(songdir):
 	listbox.insert((1), song[songfolder:-1])
@@ -78,7 +78,6 @@ def Open():
 		curts.set('              No song added')
 	if CheckForSameSong == '1':
 		numberofsongs = len(musiclist)
-		print numberofsongs
 		samesong = False
 		x = 0
 		for song in musiclist:
@@ -91,7 +90,7 @@ def Open():
 				else:
 					addsong(myopen)
 					listbox.insert(END, myopen[songfolder:])
-					initplay(myopen)
+					initplay(myopen[songfolder:])
 	
 	else:
 		addsong(myopen)
