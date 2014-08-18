@@ -1,4 +1,4 @@
-Music Folder=/home/doke/
+Music Folder=
 Check for same song(1/0)=1
 Have Volume bar(1/0)=1
 Have Logo Image(1/0)=1
