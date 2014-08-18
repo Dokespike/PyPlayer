@@ -8,22 +8,26 @@ from PIL import ImageTk
 from Tkinter import *
 
 
-#Creates TKinter window and its loop (As well as pygames loop (mixer))
+
+#Creates TKinter window and starts its loop
+musiclist = []
 app = Tk()
 app.title('PyPlayer')
 app.geometry('750x500')
+
+#Starts pygame mixer
 pygame.mixer.init()
 
 
 
-#Makes the listbox and places it
+#Makes the listbox and places it in the window
 listbox = Listbox(app, selectmode=SINGLE, width='93', height='27')
 listbox.grid(row=1, column=0 )
 
 
 
-#Opens the config file and puts it into list 'confg'
-#The [:-1] removes the break symbol from each segment (/n)
+#Opens the config file and puts each line into list 'confg'
+#The [:-1] removes the break symbol from the end of each line (/n)
 confg = []
 conf = open('Config.txt')
 for configuration in iter(conf):
@@ -32,32 +36,30 @@ conf.close()
 
 
 
-#Grabbing items from confg to use in program
-songfolderimp = confg[0][13:]
+#Grabbing relevent info from the confg list to use in program
+#The chopping of the strings removes non-needed text
+songfolder = confg[0][13:]
 CheckForSameSong = confg[1][25:]
 VolumeControl = confg[2][21:]
 Logo = confg[3][21:]
 ArrowBrowser = confg[4][35:]
 
-#Songfolder length is used mainly to chop strings for music
-songfolder = len(songfolderimp)
 
 
-
-#Add music to listbox from MusicDir
-#The [:-1] removes the break symbol from each segment (/n)
-#Musiclist is a list of items in MusicDir
-musiclist = []
+#Add items to listbox from the file MusicDir
+#The [:-1] removes the break symbol from the end of each line (/n)
 songdir = open('MusicDir.txt')
 for song in iter(songdir):
-	listbox.insert((1), song[songfolder:-1])
+	listbox.insert((1), song[len(songfolder):-1])
 	musiclist.append(song[:-1])
 songdir.close()
 
 
+
+#On select in listbox, take songfolderimp plus song name(value) and play it
 def CurSelet(evt):
     value=(listbox.get(listbox.curselection()))
-    initplay(songfolderimp + value)
+    initplay(songfolder + value)
 listbox.bind('<<ListboxSelect>>',CurSelet)
 
 
@@ -65,7 +67,7 @@ listbox.bind('<<ListboxSelect>>',CurSelet)
 def initplay(song):
 	pygame.mixer.music.load(song)
 	pygame.mixer.music.play()
-	curts.set('Now Playing: ' + song[songfolder:])
+	curts.set('Now Playing: ' + song[len(songfolder):])
 	print curts.get
 	return
 
@@ -78,6 +80,7 @@ def Open():
 		curts.set('              No song added')
 	if CheckForSameSong == '1':
 		numberofsongs = len(musiclist)
+		print numberofsongs
 		samesong = False
 		x = 0
 		for song in musiclist:
@@ -89,13 +92,13 @@ def Open():
 					alreadyhere = tkMessageBox.showwarning( message = 'Song already added')
 				else:
 					addsong(myopen)
-					listbox.insert(END, myopen[songfolder:])
-					initplay(myopen[songfolder:])
+					listbox.insert(END, myopen[len(songfolder):])
+					initplay(myopen[len(songfolder):])
 	
 	else:
 		addsong(myopen)
-		listbox.insert(END, myopen[songfolder:])
-		initplay(myopen[songfolder:])
+		listbox.insert(END, myopen[len(songfolder):])
+		initplay(myopen[len(songfolder):])
 
 def delete():
 	print get(ACTIVE)
