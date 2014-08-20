@@ -9,7 +9,7 @@ from Tkinter import *
 
 
 
-#This is what makes PyPlayer work, playing the files, organizing it in the program window, and saving it in a dirrectorys file. It does EVERYTHING KNOWN TO MAN. (kind of)
+#This is what makes PyPlayer work, playing, placing, and saving files for the music player to work. It does EVERYTHING KNOWN TO MAN. (kind of)
 
 class pyplayer:
 
@@ -50,19 +50,12 @@ class pyplayer:
 			listbox.insert(END, myopen[len(songfolder):])
 			Pp.initplay(myopen)
 
-	def delete(self):
-		print get(ACTIVE)
-		listbox.delete(ANCHOR)
-		CSI = open('MusicDir.txt', 'w')
-		for song in listbox:
-			CSI.write(song+'\n')
-			CSI.close()
-
 
 	def addsong(self,x):
-		CSI = open('MusicDir.txt', 'a')
-		CSI.write(x+'\n')
-		CSI.close()
+		MusicDir = open('MusicDir.txt', 'a')
+		MusicDir.write(x+'\n')
+		MusicDir.close()
+
 	
 	def SetVolume(self):
 		volumeSlider = volume.get() + .0
@@ -188,7 +181,6 @@ else:
 menubar = Menu(app)
 filemenu = Menu(menubar, tearoff = 0)
 filemenu.add_command(label = 'Import', command = Pp.Open)
-filemenu.add_command(label = 'Delete', command = Pp.delete)
 filemenu.add_command(label = 'Close',command = Pp.quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
 app.config(menu = menubar)
