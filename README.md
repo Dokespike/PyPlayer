@@ -6,6 +6,10 @@ This is project is being made in an attempt to make the most basic and simple, y
 
 
 
+# 10 year update!
+Hello all zero users of this software, turns out the python2.7 vs python3 thing happened. Needless to say this does not run and the dependencies I list below no longer exist on apt.
+I would love to fix this but I clearly had _no_idea_ what I was doing a decade ago. Maybe i'll decipher this pizzle of a codebase at some point as it was my first real project I had ever done. 
+
 
 Dependences to install:
 =======================
@@ -17,11 +21,6 @@ Then you will need the following python modules:
 
 If you are new to linux and are using Ubuntu (Debian based) do the following:
 sudo apt-get install (one of the above) (You need to do it to both)
-
-While you dont _need_ this, if you want the logo for the program in the window use:
-http://i.imgur.com/5TDnX78.png
-and save it as "logo.png" in the same folder as PyPlayer, after that change "Have Logo Image(1/0)=0" so that the 0 at the end is a 1 
-
 
 
 
