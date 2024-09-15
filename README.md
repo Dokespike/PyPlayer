@@ -8,7 +8,7 @@ This is project is being made in an attempt to make the most basic and simple, y
 
 # 10 year update!
 Hello all zero users of this software, turns out the python2.7 vs python3 thing happened. Needless to say this does not run and the dependencies I list below no longer exist on apt.
-I would love to fix this but I clearly had _no_idea_ what I was doing a decade ago. Maybe i'll decipher this pizzle of a codebase at some point as it was my first real project I had ever done. 
+I would love to fix this but I clearly had _no idea_ what I was doing a decade ago. Maybe i'll decipher this puzzle of a codebase at some point as it was my first real project I had ever done. 
 
 
 Dependences to install:
