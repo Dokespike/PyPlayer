@@ -1,11 +1,11 @@
 #To run the following program, make sure you have Python along with the following Python modules:
-#python-imaging-tk
-#python-pygame
+#To get this to work if youre on a debian based system, 
+#  run "sudo apt-get install python3-tk python3-pil.imagetk python3-pygame"
+#  if that doesnt work then im sure you can figure it out.
 #Have fun!
 
-import tkFileDialog, PIL.Image, pygame, tkMessageBox
+import tkinter, tkinter.filedialog, PIL.Image, pygame, tkinter.messagebox, sys
 from PIL import ImageTk
-from Tkinter import *
 
 
 
@@ -15,19 +15,28 @@ class pyplayer:
 
 	def initplay(self,song):
 		print(song)
-		pygame.mixer.music.load(song)
-		pygame.mixer.music.play()
+		try:
+			pygame.mixer.music.load(song)
+		except:
+			tkinter.messagebox.showwarning( message = 'Was not able to find song!\n Location provided:\n' + song)
+			return
+		try:
+			pygame.mixer.music.play()
+		except  Exception as e:
+			tkinter.messagebox.showerror("Unable to play song! \n Error printed into console.")
+			print(e)
+			return
 		curts.set('Now Playing: ' + song[len(songfolder):])
 		print('Now Playing: ' + song[len(songfolder):])
-		print curts.get
+		print(curts.get)
 		return
 	
 	
 	    
 	def Open(self):
-		myopen = tkFileDialog.askopenfilename()
+		myopen = tkinter.filedialog.askopenfilename()
 		if len(myopen) < 4:
-			noneadded = tkMessageBox.showwarning( message = 'No song 	added')
+			noneadded = tkinter.messagebox.showwarning( message = 'No song 	added')
 			curts.set('              No song added')
 		if CheckForSameSong == '1':
 			numberofsongs = len(musiclist)
@@ -39,15 +48,15 @@ class pyplayer:
 					samesong = True
 				if x == numberofsongs:
 					if samesong == True:
-						alreadyhere = 	tkMessageBox.showwarning( message = 'Song already added')
+						alreadyhere = 	tkinter.messagebox.showwarning( message = 'Song already added')
 					else:
 						Pp.addsong(myopen)
-						listbox.insert(END, myopen[len	(songfolder):])
+						listbox.insert(tkinter.END, myopen[len	(songfolder):])
 						Pp.initplay(myopen)
 		
 		else:
 			Pp.addsong(myopen)
-			listbox.insert(END, myopen[len(songfolder):])
+			listbox.insert(tkinter.END, myopen[len(songfolder):])
 			Pp.initplay(myopen)
 
 
@@ -64,10 +73,10 @@ class pyplayer:
 
 	
 	def quit():
-		exit = tkMessageBox.askyesno(title="Quit", message = 'Are you sure')
+		exit = tkinter.messagebox.askyesno(title="Quit", message = 'Are you sure')
 		if exit == True:
 			app.destroy()
-			sys.exit()
+			sys.exit(0)
 			return
 
 
@@ -79,7 +88,7 @@ class pyplayer:
 #Creates TKinter and starts its loop, makes Pp to use the above class (pyplayer), starts pygames mixer (used to play sounds), and makes a list used to store info about the songs in the program.
 musiclist = []
 Pp = pyplayer()
-app = Tk()
+app = tkinter.Tk()
 app.title('PyPlayer')
 app.geometry('750x500')
 pygame.mixer.init()
@@ -87,7 +96,7 @@ pygame.mixer.init()
 
 
 #Makes the listbox and places it in the window
-listbox = Listbox(app, selectmode=SINGLE, width='93', height='27')
+listbox = tkinter.Listbox(app, selectmode=tkinter.SINGLE, width='93', height='27')
 listbox.grid(row=1, column=0 )
 
 
@@ -137,16 +146,16 @@ listbox.bind('<<ListboxSelect>>',CurSelect)
 
 #The PyPlayer logo
 if Logo == '1':
-	image = PIL.Image.open("logo.png")
+	image = PIL.Image.open("Logo.png")
 	photo = ImageTk.PhotoImage(image)
-	logo = Label(image=photo)	
+	logo = tkinter.Label(image=photo)	
 	logo.image = photo
-	logo.grid(row=0, column=0 , sticky = NW)
+	logo.grid(row=0, column=0 , sticky = tkinter.NW)
 
 
 #Arrows for moving up and down listbox
 if ArrowBrowser == '1':
-	scrollbar = Scrollbar(app)
+	scrollbar = tkinter.Scrollbar(app)
 	scrollbar.place(relx=.435, rely=.03)
 	listbox.config(yscrollcommand=scrollbar.set)
 	scrollbar.config(command=listbox.yview)
@@ -155,21 +164,21 @@ if ArrowBrowser == '1':
 
 #Slider and button to change volume of music
 if VolumeControl == '1':
-	volume = Scale(app, from_=0, to=100, length=200, orient=HORIZONTAL)
+	volume = tkinter.Scale(app, from_=0, to=100, length=200, orient=tkinter.HORIZONTAL)
 	volume.place(relx=.62, rely=.01)
-	VolumeButton = Button(app, text= 'Volume', command = Pp.SetVolume).place(relx=.9, rely=.03)
+	VolumeButton = tkinter.Button(app, text= 'Volume', command = Pp.SetVolume).place(relx=.9, rely=.03)
 
 
 
 #Pause and Play button
-playbut = Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.458, rely=.03)
-pausebut = Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.53, rely=.03)
+playbut = tkinter.Button(app, text = 'Play', command = pygame.mixer.music.unpause).place(relx=.458, rely=.03)
+pausebut = tkinter.Button(app, text = 'Pause', command = pygame.mixer.music.pause).place(relx=.53, rely=.03)
 
 
 
 #curts is the text variable on the window
-curts = StringVar()
-Text = Label(app,textvariable = curts)
+curts = tkinter.StringVar()
+Text = tkinter.Label(app,textvariable = curts)
 if Logo == '1':
 	Text.place(relx=.215, rely=.135)
 else:
@@ -178,8 +187,8 @@ else:
 
 
 #Jazz hands
-menubar = Menu(app)
-filemenu = Menu(menubar, tearoff = 0)
+menubar = tkinter.Menu(app)
+filemenu = tkinter.Menu(menubar, tearoff = 0)
 filemenu.add_command(label = 'Import', command = Pp.Open)
 filemenu.add_command(label = 'Close',command = Pp.quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
